@@ -1,0 +1,58 @@
+ext {
+
+
+    commonDependencies = [
+            [configuration: "implementation", dependency: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"],
+            [configuration: "implementation", dependency: "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"],
+            [configuration: "implementation", dependency: "org.koin:koin-core:$koin_version"]
+    ]
+
+
+    commonAndroidDependencies = [
+            [configuration: "implementation", dependency: fileTree(dir: "libs", include: ["*.jar"])],
+            [configuration: "implementation", dependency: "androidx.core:core-ktx:$core_ktx_version"],
+            [configuration: "implementation", dependency: "androidx.appcompat:appcompat:$appcompat_version"],
+            [configuration: "implementation", dependency: "org.koin:koin-android:$koin_version"],
+            [configuration: "implementation", dependency: "org.koin:koin-androidx-viewmodel:$koin_version"],
+            [configuration: "implementation", dependency: "androidx.constraintlayout:constraintlayout:$constraintlayout_version"]
+    ]
+
+    dataRemoteDependencies = [
+            [configuration: "implementation", dependency: "com.squareup.retrofit2:retrofit:$retrofit_version"],
+            [configuration: "implementation", dependency: "com.squareup.retrofit2:converter-gson:$retrofit_version"],
+            [configuration: "implementation", dependency: "com.squareup.okhttp3:okhttp:$okhttp_version"],
+            [configuration: "implementation", dependency: "com.squareup.okhttp3:logging-interceptor:$okhttp_version"]
+    ]
+
+    diDependencies = [
+            [configuration: "implementation", dependency: "com.google.code.gson:gson:$gson_version"]
+    ]
+
+    testDependencies = [
+            [configuration: "testImplementation", dependency: "junit:junit:$junit_version"],
+            [configuration: "testImplementation", dependency: "org.mockito:mockito-core:$mockito_version"],
+            [configuration: "testImplementation", dependency: "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"],
+            [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$core_testing_version"],
+            [configuration: "testImplementation", dependency: "org.mockito:mockito-inline:$mockito_inline_version"],
+            [configuration: "testImplementation", dependency: "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"],
+            [configuration: "implementation", dependency: "org.koin:koin-test:$koin_version"],
+            [configuration: "implementation", dependency: "com.squareup.okhttp3:mockwebserver:$okhttp_version"]
+    ]
+
+    androidTestDependencies = [
+            [configuration: "androidTestImplementation", dependency: "androidx.test:runner:$test_runner_version"],
+            [configuration: "androidTestImplementation", dependency: "androidx.test.espresso:espresso-core:$espresso_version"],
+            [configuration: "androidTestImplementation", dependency: "androidx.test:core-ktx:$core_ktx_test_version"]
+    ]
+
+    presentationDependencies = [
+            [configuration: "implementation", dependency: "de.hdodenhof:circleimageview:$circleimageview_version"],
+            [configuration: "implementation", dependency: "com.squareup.picasso:picasso:$picasso_version"],
+            [configuration: "implementation", dependency: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"],
+            [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"],
+            [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"],
+            [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"],
+            [configuration: "implementation", dependency: "com.google.android.material:material:$material_version"]
+    ]
+    appDependencies = commonDependencies + commonAndroidDependencies + dataRemoteDependencies + presentationDependencies + diDependencies + testDependencies + androidTestDependencies
+}
