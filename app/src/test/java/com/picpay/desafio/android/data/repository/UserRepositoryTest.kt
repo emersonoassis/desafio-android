@@ -24,4 +24,14 @@ class UserRepositoryTest {
 
         Assert.assertEquals(expectedResult, result)
     }
+
+    @Test(expected = Exception::class)
+    fun `WHEN getUsers is error SHOULD return a exception`() {
+        runBlocking {
+            val expectedResult = Exception()
+            whenever(dataSource.getUsers()).thenThrow(expectedResult)
+
+            repository.getUsers().first()
+        }
+    }
 }

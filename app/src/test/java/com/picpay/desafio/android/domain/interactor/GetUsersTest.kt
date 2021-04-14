@@ -1,8 +1,10 @@
 package com.picpay.desafio.android.domain.interactor
 
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import com.picpay.desafio.android.domain.TestContextProvider
-import com.picpay.desafio.android.domain.model.User
 import com.picpay.desafio.android.domain.repository.UserRepository
 import com.picpay.desafio.android.domain.util.ThreadContextProvider
 import com.picpay.desafio.android.faker.UserFaker

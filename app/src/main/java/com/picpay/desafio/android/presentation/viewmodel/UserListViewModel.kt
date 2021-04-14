@@ -7,7 +7,8 @@ import com.picpay.desafio.android.presentation.mapper.UserBindingMapper
 import com.picpay.desafio.android.presentation.model.UserBinding
 import org.koin.core.KoinComponent
 
-class UserListViewModel : ViewModel(), KoinComponent, LifecycleObserver {
+class UserListViewModel : ViewModel(), KoinComponent,
+    LifecycleObserver {
 
     private val getUsers: GetUsers by useCase()
 
@@ -15,19 +16,19 @@ class UserListViewModel : ViewModel(), KoinComponent, LifecycleObserver {
     val userListViewState: LiveData<ViewState<List<UserBinding>>> = _userListViewState
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun fetchUserList() {
-        if(_userListViewState.value !is Success) {
+    fun fetchUserList() = when (_userListViewState.value) {
+        !is Success -> {
             _userListViewState.postLoading()
             getUsers(
-                onSuccess = { users ->
-                    _userListViewState.postSuccess(UserBindingMapper.toPresentationBinding(users))
-                },
                 onError = { throwable ->
                     _userListViewState.postError(throwable)
+                },
+                onSuccess = { users ->
+                    _userListViewState.postSuccess(UserBindingMapper.toPresentationBinding(users))
                 }
             )
         }
-
+        else -> _userListViewState.postValue(_userListViewState.value)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
