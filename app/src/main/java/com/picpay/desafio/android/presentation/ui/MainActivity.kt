@@ -6,10 +6,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.picpay.desafio.android.R
-import com.picpay.desafio.android.core.onPostValue
 import com.picpay.desafio.android.databinding.ActivityMainBinding
-import com.picpay.desafio.android.presentation.ui.adapter.UserListAdapter
+import com.picpay.desafio.android.presentation.extension.onPostValue
 import com.picpay.desafio.android.presentation.model.UserBinding
+import com.picpay.desafio.android.presentation.ui.adapter.UserListAdapter
 import com.picpay.desafio.android.presentation.viewmodel.UserListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -12,6 +12,8 @@ import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 
@@ -20,6 +22,18 @@ class MainActivityTest {
     private val server = MockWebServer()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    @Before
+    fun setup() {
+        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi enable")
+        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data enable")
+    }
+
+    @After
+    fun finish() {
+        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi enable")
+        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data enable")
+    }
 
     @Test
     fun shouldDisplayTitle() {
@@ -33,19 +47,13 @@ class MainActivityTest {
     }
 
     @Test
-    fun shouldDisplayListItem() {
-        server.dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                return when (request.path) {
-                    "/users" -> successResponse
-                    else -> errorResponse
-                }
-            }
-        }
+    fun whenSuccessShouldDisplayListItem() {
+        server.dispatcher = getMockServerInstance()
 
         server.start(serverPort)
 
         launchActivity<MainActivity>().apply {
+
             onView(withId(R.id.user_list_progress_bar))
                 .check(matches(withEffectiveVisibility(Visibility.GONE)))
 
@@ -58,6 +66,45 @@ class MainActivityTest {
         }
 
         server.close()
+    }
+
+    @Test
+    fun whenErrorShouldUseCacheToDisplayListItem() {
+        server.dispatcher = getMockServerInstance()
+
+        server.start(serverPort)
+
+        val scenario = launchActivity<MainActivity>()
+
+        scenario.recreate()
+
+        scenario.apply {
+
+            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi disable")
+            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data disable")
+
+            onView(withId(R.id.user_list_progress_bar))
+                .check(matches(withEffectiveVisibility(Visibility.GONE)))
+
+            onView(withId(R.id.recyclerView))
+                .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+
+            checkRecyclerViewItem(R.id.recyclerView, 0, withText("Eduardo Santos"))
+            checkRecyclerViewItem(R.id.recyclerView, 0, withText("@eduardo.santos"))
+
+
+        }
+        server.close()
+    }
+
+
+    private fun getMockServerInstance() = object : Dispatcher() {
+        override fun dispatch(request: RecordedRequest): MockResponse {
+            return when (request.path) {
+                "/users" -> successResponse
+                else -> errorResponse
+            }
+        }
     }
 
     companion object {

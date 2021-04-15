@@ -3,14 +3,14 @@ package com.picpay.desafio.android.presentation.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.*
-import com.picpay.desafio.android.core.Error
-import com.picpay.desafio.android.core.Success
-import com.picpay.desafio.android.core.ViewState
 import com.picpay.desafio.android.domain.interactor.GetUsers
 import com.picpay.desafio.android.domain.model.User
 import com.picpay.desafio.android.faker.UserFaker
 import com.picpay.desafio.android.presentation.mapper.UserBindingMapper
 import com.picpay.desafio.android.presentation.model.UserBinding
+import com.picpay.desafio.android.presentation.util.Error
+import com.picpay.desafio.android.presentation.util.Success
+import com.picpay.desafio.android.presentation.util.ViewState
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

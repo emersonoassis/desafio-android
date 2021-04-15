@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core
+package com.picpay.desafio.android.presentation.extension
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

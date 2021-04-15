@@ -1,8 +1,12 @@
-package com.picpay.desafio.android.core
+package com.picpay.desafio.android.presentation.extension
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.picpay.desafio.android.presentation.util.Loading
+import com.picpay.desafio.android.presentation.util.Success
+import com.picpay.desafio.android.presentation.util.Error
+import com.picpay.desafio.android.presentation.util.ViewState
 
 fun <T> viewState() = lazy {
     MutableLiveData<ViewState<T>>()

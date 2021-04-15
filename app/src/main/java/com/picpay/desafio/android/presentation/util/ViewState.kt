@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core
+package com.picpay.desafio.android.presentation.util
 
 sealed class ViewState<Data>
 class Loading<Data> : ViewState<Data>()
