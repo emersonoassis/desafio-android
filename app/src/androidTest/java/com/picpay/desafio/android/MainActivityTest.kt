@@ -25,14 +25,12 @@ class MainActivityTest {
 
     @Before
     fun setup() {
-        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi enable")
-        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data enable")
+        executeCommands(listOf(WIFI_ENABLE, DATA_ENABLE))
     }
 
     @After
     fun finish() {
-        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi enable")
-        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data enable")
+        executeCommands(listOf(WIFI_ENABLE, DATA_ENABLE))
     }
 
     @Test
@@ -80,8 +78,7 @@ class MainActivityTest {
 
         scenario.apply {
 
-            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi disable")
-            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data disable")
+            executeCommands(listOf(WIFI_DISABLE, DATA_DISABLE))
 
             onView(withId(R.id.user_list_progress_bar))
                 .check(matches(withEffectiveVisibility(Visibility.GONE)))
@@ -109,6 +106,11 @@ class MainActivityTest {
 
     companion object {
         private const val serverPort = 8080
+
+        private const val WIFI_DISABLE = "svc wifi disable"
+        private const val DATA_DISABLE = "svc data disable"
+        private const val WIFI_ENABLE = "svc wifi enable"
+        private const val DATA_ENABLE = "svc data enable"
 
         private val successResponse by lazy {
             val body =
